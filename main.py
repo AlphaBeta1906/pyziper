@@ -61,6 +61,7 @@ def zip(folder_name, zip_name, output, type):
 
     t0 = time.process_time()
 
+    type = type.lower()
     output_path = getcwd() if not output else join(getcwd(), output)
     if type == 'zip':
         default_zip(output_path, zip_name, folder_name)
