@@ -2,9 +2,12 @@ from setuptools import setup, find_packages
 
 setup(
     name="pyzip",
-    version="0.1",
-    description="a simple cli tools for automation git repository creation",
-    keywords='automation,tools ,cli,git,github,development',
+    version="0.2",
+    description=(
+        "pyzip a simple cli tools to help you to handle archive file ,like zipping and"
+        " unzipping "
+    ),
+    keywords='tools ,cli,zip,7z,tar,archive',
     install_requires=["Click", "py7zr"],
     py_modules=["main"],
     entry_points="""
