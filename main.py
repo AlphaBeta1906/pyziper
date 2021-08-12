@@ -12,15 +12,15 @@ init(autoreset=True)
 
 
 @click.group()
-def pyzip():
-    """pyzip a simple cli tools to help you to handle archive file
+def pyziper():
+    """pyziper a simple cli tools to help you to handle archive file
     ,like zipping or unzipping
 
     example zip a folder :\n
-    pyzip zip <folder_name> <zip_file_name> -T [zip|7z|tar] -O <output_dir>
+    pyziper zip <folder_name> <zip_file_name> -T [zip|7z|tar] -O <output_dir>
 
     example unzip a archive : \n
-    pyzip unzip <zip_file_name>.zip|7z|tar.gz -O <output_dir>
+    pyziper unzip <zip_file_name>.zip|7z|tar.gz -O <output_dir>
 
     version : 0.2
     """
@@ -76,7 +76,7 @@ def tar_zip(output_path, zip_name, folder_name, multi=False):
 @click.option('--multi', '-M', is_flag=True)
 @click.option('--type', '-T', default='zip')
 @click.option('--output', '-O')
-@pyzip.command()
+@pyziper.command()
 def zip(folder_name, zip_name, output, type, multi):
     """zip a folder"""
     if not exists(join(getcwd(), folder_name)) and not multi:
@@ -119,7 +119,7 @@ def zip(folder_name, zip_name, output, type, multi):
 
 @click.argument("zip_file")
 @click.option('--output', '-O')
-@pyzip.command()
+@pyziper.command()
 def unzip(zip_file, output):
     """unzip a folder"""
     import time
