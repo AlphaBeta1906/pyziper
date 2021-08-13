@@ -13,7 +13,7 @@ setup(
     ),
     url='https://github.com/AlphaBeta1906/pyziper',
     download_url=(
-        'https://github.com/AlphaBeta1906/pyziper/archive/refs/tags/v0.2.tar.gz'
+        'https://github.com/AlphaBeta1906/pyziper/archive/refs/tags/v0.3.tar.gz'
     ),
     author="fariz",
     author_email="farizi1906@gmail.com",
