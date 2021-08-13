@@ -4,11 +4,18 @@ pyziper a simple cli tools to help you to handle archive file ,like zipping and 
 
 
 ## installing 
-for now the only way to install is trough this repo.
+install from pip: 
+```bash
+pip install patool # this is required and install it globally
+pip install pyziper
+```
+install from source : 
 
 ```bash
 git clone https://github.com/AlphaBeta1906/pyziper.git
 cd pyziper
+
+pip install patool
 pip install -e . # install it globally so you can use it everywhere in  your machine
 ```
 
@@ -42,6 +49,7 @@ pyziper zip folder_name zip_name -T zip
 # or simply
 pyziper zip folder_name zip_name
 ```
+*Note : please dont use ../ to zip a file,pyziper only zip files/folder in current diectory or subdirectory of current directory,not files/folders in previouse directory otherwise archive will error when exctracting*
 
 you also can spicify output dir by using `-O`/`--output` options,example: 
 ```bash 

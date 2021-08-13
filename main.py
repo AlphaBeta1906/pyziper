@@ -4,6 +4,7 @@ from os import path, walk, getcwd
 from os.path import getsize, join, exists
 from pathlib import Path
 
+from pyunpack import Archive
 import tarfile
 import py7zr
 from zipfile import ZipFile, ZIP_DEFLATED
@@ -22,7 +23,7 @@ def pyziper():
     example unzip a archive : \n
     pyziper unzip <zip_file_name>.zip|7z|tar.gz -O <output_dir>
 
-    version : 0.2
+    version : 0.3
     """
     pass
 
@@ -48,7 +49,7 @@ def _7zip(output_path, zip_name, folder_name, multi=False):
                 for file in files:
                     _7z.writeall(file)
             else:
-                _7z.writeall(folder_name + '/')
+                _7z.writeall(folder_name)
     except FileNotFoundError as e:
         click.echo(Fore.RED + "Error: one or more file(s) is not found")
         exit()
@@ -73,9 +74,15 @@ def tar_zip(output_path, zip_name, folder_name, multi=False):
 
 @click.argument("zip_name", metavar="<zip_name>")
 @click.argument("folder_name", metavar="<folder_name>")
-@click.option('--multi', '-M', is_flag=True)
-@click.option('--type', '-T', default='zip')
-@click.option('--output', '-O')
+@click.option('--multi', '-M', is_flag=True, help="enable multiple Archive")
+@click.option(
+    '--type',
+    '-T',
+    default='zip',
+    help="defining type of arhcive,default = zip",
+    metavar="<zip/7z/tar>",
+)
+@click.option('--output', '-O', help="output directory", metavar="<dir>")
 @pyziper.command()
 def zip(folder_name, zip_name, output, type, multi):
     """zip a folder"""
@@ -117,33 +124,18 @@ def zip(folder_name, zip_name, output, type, multi):
     click.echo("finished at : " + str(t1 - t0))
 
 
-@click.argument("zip_file")
-@click.option('--output', '-O')
+@click.argument("zip_file", metavar="<zip_name>")
+@click.option('--output', '-O', help="output directory", metavar="<dir>")
 @pyziper.command()
 def unzip(zip_file, output):
     """unzip a folder"""
     import time
 
+    t0 = time.process_time()
     output_path = getcwd() if not output else join(getcwd(), output)
     zip_file_path = join(getcwd(), zip_file)
     try:
-        t0 = time.process_time()
-        if zip_file.endswith('.zip'):
-            with ZipFile(zip_file_path, 'r') as _unzip:
-                _unzip.extractall(output_path)
-        elif zip_file.endswith('.7z'):
-            with py7zr.SevenZipFile(zip_file_path, 'r') as _7z:
-                _7z.extractall(output_path)
-        elif (
-            zip_file.endswith('.tar.gz')
-            or zip_file.endswith('.tar')
-            or zip_file.endswith('.gz')
-        ):
-            with tarfile.open(zip_file_path, 'r') as tar:
-                tar.extractall(output_path)
-        else:
-            click.echo("unknown zip type")
-            exit()
+        Archive(zip_file_path).extractall(output_path)
     except FileNotFoundError as e:
         click.echo(e)
     else:
@@ -153,5 +145,5 @@ def unzip(zip_file, output):
             else "folder succesfully zipped at " + output_path
         )
 
-        t1 = time.process_time() - t0
-        print("finished at : ", t1 - t0)
+    t1 = time.process_time() - t0
+    print("finished at : ", t1 - t0)

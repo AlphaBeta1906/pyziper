@@ -4,7 +4,7 @@ long_description = open('README.md').read()
 
 setup(
     name="pyziper",
-    version="0.2",
+    version="0.3",
     long_description=long_description,
     long_description_content_type='text/markdown',
     description=(
@@ -13,7 +13,7 @@ setup(
     ),
     url='https://github.com/AlphaBeta1906/pyziper',
     download_url=(
-        'https://github.com/AlphaBeta1906/pyziper/archive/refs/tags/v0.2.tar.gz
+        'https://github.com/AlphaBeta1906/pyziper/archive/refs/tags/v0.2.tar.gz'
     ),
     author="fariz",
     author_email="farizi1906@gmail.com",
